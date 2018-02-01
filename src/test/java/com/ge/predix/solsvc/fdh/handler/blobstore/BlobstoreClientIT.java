@@ -10,12 +10,12 @@
 
 package com.ge.predix.solsvc.fdh.handler.blobstore;
 
+import java.io.CharArrayReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,6 +27,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.amazonaws.services.s3.model.S3Object;
 import com.ge.predix.entity.datafile.DataFile;
 import com.ge.predix.solsvc.blobstore.bootstrap.api.BlobstoreClient;
 
@@ -40,11 +41,8 @@ import com.ge.predix.solsvc.blobstore.bootstrap.api.BlobstoreClient;
 @ContextConfiguration(locations = { "classpath*:META-INF/spring/TEST-blobstore-bootstrap-properties-context.xml" })
 //@IntegrationTest({ "server.port=0" })
 @ComponentScan(basePackages = { "com.ge.predix.solsvc" })
-@ActiveProfiles(profiles = { "local", "blobstore" })
-@Ignore
+@ActiveProfiles("blobstore")
 public class BlobstoreClientIT {
-
-	@SuppressWarnings("unused")
 	private static Logger log = LoggerFactory.getLogger(BlobstoreClientIT.class);
 
 	private static final String TEST_FILE = "src/test/resources/sample-test.csv"; //$NON-NLS-1$
@@ -52,22 +50,38 @@ public class BlobstoreClientIT {
 	@Autowired
 	private BlobstoreClient blobstoreClient;
 
+	
 	/**
 	 * -
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testBlobstorePut() {
+		
 		DataFile data = new DataFile();
-		data.setName(TEST_FILE.substring(TEST_FILE.lastIndexOf("/") + 1));
-		try {
+		String fileName = TEST_FILE.substring(TEST_FILE.lastIndexOf("/") + 1); //$NON-NLS-1$
+		data.setName(fileName);
+		try (FileReader reader = new FileReader(TEST_FILE);
+				S3Object obj = new S3Object();) {
+			String contents = IOUtils.toString(reader);
 			data.setFile(IOUtils.toByteArray(new FileSystemResource(TEST_FILE).getInputStream()));
+			
+			obj.setKey(fileName);
+            obj.setObjectContent(new FileSystemResource(TEST_FILE).getInputStream());
+            
+			this.blobstoreClient.saveBlob(obj);
+			log.info(fileName+" saved successfully"); //$NON-NLS-1$
+			DataFile retData = this.blobstoreClient.getBlob(fileName);
+			String retContent = IOUtils.toString(new CharArrayReader((char[])retData.getFile()));		
+			Assert.assertEquals(contents, retContent);
+			log.info("returned content : "+retContent); //$NON-NLS-1$
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		Map<String, String> userObjectMetaData = new HashMap<String, String>();
-		this.blobstoreClient.saveBlob(data, userObjectMetaData);
-
+		
+		
+		
 	}
 
 }

@@ -1,15 +1,16 @@
 package com.ge.predix.solsvc.blobstore.bootstrap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
-@Component
+/**
+ * 
+ * @author 212546387 -
+ */
+@Configuration
 @Profile("blobstore")
 public class BlobstoreConfig{
-	Log log = LogFactory.getLog(BlobstoreConfig.class);
 	@Value("${predix.blobstore.access.keyid}")
 	private String accessKeyId;
 	
@@ -25,65 +26,141 @@ public class BlobstoreConfig{
 	@Value("${predix.blobstore.url}")
 	private String url;
 	
-	@Value("${predix.oauth.proxyHost:${null}}")
+	@Value("${predix.oauth.proxyHost:#{null}}")
 	private String proxyHost;
 	
 	@Value("${predix.oauth.proxyPort:8080}")
 	private String proxyPort;
 	
+	@Value("${predix.oauth.certLocation:#{null}}")
+	private String oauthCertLocation;
+	
+	@Value("${predix.oauth.certPassword:#{null}}")
+	private String oauthCertPassword;
+	
+	/**
+	 * @return -
+	 */
 	public String getAccessKeyId() {
-		return accessKeyId;
+		return this.accessKeyId;
 	}
 
+	/**
+	 * @param accessKeyId -
+	 */
 	public void setAccessKeyId(String accessKeyId) {
 		this.accessKeyId = accessKeyId;
 	}
 
+	/**
+	 * @return -
+	 */
 	public String getBucketName() {
-		return bucketName;
+		return this.bucketName;
 	}
 
+	/**
+	 * @param bucketName -
+	 */
 	public void setBucketName(String bucketName) {
 		this.bucketName = bucketName;
 	}
 
+	/**
+	 * @return -
+	 */
 	public String getBlobstoreHost() {
-		return blobstoreHost;
+		return this.blobstoreHost;
 	}
 
+	/**
+	 * @param blobstoreHost -
+	 */
 	public void setBlobstoreHost(String blobstoreHost) {
 		this.blobstoreHost = blobstoreHost;
 	}
 
+	/**
+	 * @return -
+	 */
 	public String getAccessKey() {
-		return accessKey;
+		return this.accessKey;
 	}
 
+	/**
+	 * @param accessKey -
+	 */
 	public void setAccessKey(String accessKey) {
 		this.accessKey = accessKey;
 	}
 
+	/**
+	 * @return -
+	 */
 	public String getUrl() {
-		return url;
+		return this.url;
 	}
 
+	/**
+	 * @param url -
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * @return -
+	 */
 	public String getProxyHost() {
-		return proxyHost;
+		return this.proxyHost;
 	}
 
+	/**
+	 * @param proxyHost -
+	 */
 	public void setProxyHost(String proxyHost) {
 		this.proxyHost = proxyHost;
 	}
 
+	/**
+	 * @return -
+	 */
 	public String getProxyPort() {
-		return proxyPort;
+		return this.proxyPort;
 	}
 	
+	/**
+	 * @param proxyPort -
+	 */
 	public void setProxyPort(String proxyPort) {
 		this.proxyPort = proxyPort;
+	}
+
+	/**
+	 * @return -
+	 */
+	public String getOauthCertLocation() {
+		return this.oauthCertLocation;
+	}
+
+	/**
+	 * @param oauthCertLocation -
+	 */
+	public void setOauthCertLocation(String oauthCertLocation) {
+		this.oauthCertLocation = oauthCertLocation;
+	}
+
+	/**
+	 * @return -
+	 */
+	public String getOauthCertPassword() {
+		return this.oauthCertPassword;
+	}
+
+	/**
+	 * @param oauthCertPassword -
+	 */
+	public void setOauthCertPassword(String oauthCertPassword) {
+		this.oauthCertPassword = oauthCertPassword;
 	}
 }
