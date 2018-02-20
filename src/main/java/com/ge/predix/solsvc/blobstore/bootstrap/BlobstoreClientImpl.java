@@ -258,7 +258,7 @@ public class BlobstoreClientImpl implements BlobstoreClient {
     /**
      * Gets the list of available Blobs for the binded bucket from the BlobStore.
      *
-     * @return List<BlobFile> List of Blobs
+     * @return List of String Blobs
      */
     @Override
     public List<String> getAvailableBlobs() {
@@ -304,7 +304,7 @@ public class BlobstoreClientImpl implements BlobstoreClient {
 	 * Gets the list of available Blobs for the binded bucket from the
 	 * BlobStore.
 	 *
-	 * @return List<BlobFile> List of Blobs
+	 * @return List of DataFile Blobs
 	 */
 	@Override
 	public List<DataFile> getBlob() {

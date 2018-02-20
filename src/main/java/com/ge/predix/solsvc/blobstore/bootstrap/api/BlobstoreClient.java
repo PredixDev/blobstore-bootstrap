@@ -14,26 +14,22 @@ public interface BlobstoreClient {
 	/**
 	 * @param object - 
 	 * @return String
-	 * @throws Exception -
 	 */
 	public String saveBlob(S3Object object);
 
 	/**
 	 * @param fileName -
-	 * @param blobstoreConfig -
 	 * @return -
 	 */
 	public DataFile getBlob(String fileName);
 
 	/**
-	 * @param blobstoreConfig -
 	 * @return -
 	 */
 	public List<DataFile> getBlob();
 
 	/**
 	 * @param fileName -
-	 * @param blobstoreConfig -
 	 */
 	public void deleteBlob(String fileName);
 
