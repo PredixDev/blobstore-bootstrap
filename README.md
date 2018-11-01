@@ -1,7 +1,7 @@
-<a href="../../../../pages/adoption/blobstore-bootstrap/javadocs/index.html" target="_blank" >
+<a href="http://predixdev.github.io/blobstore-bootstrap/javadocs/index.html" target="_blank" >
 	<img height="50px" width="100px" src="images/javadoc.png" alt="view javadoc"></a>
 &nbsp;
-<a href="../../../../pages/adoption/blobstore-bootstrap" target="_blank">
+<a href="http://predixdev.github.io/blobstore-bootstrap" target="_blank">
 	<img height="50px" width="100px" src="images/pages.jpg" alt="view github pages">
 </a>
 
