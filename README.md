@@ -9,4 +9,4 @@
 Blobstore bootstrap
 This sdk library provides API to access the AWS Blobstore. Ii provides both put and get api to save and retrieve blobstore content respectively.
 
-[![Analytics](https://ga-beacon.appspot.com/UA-82773213-1/blobstore-bootstrap/readme?pixel)](https://github.com/PredixDev)
+[![Analytics](https://predix-beacon.appspot.com/UA-82773213-1/blobstore-bootstrap/readme?pixel)](https://github.com/PredixDev)
